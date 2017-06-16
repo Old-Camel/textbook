@@ -4,40 +4,30 @@
 
 ####图书信息管理模块实现了对教材库的教材具体信息的管理，系统页面显示每种教材的书名，作者，出版社，简介，ISBN号码，出版日期，库内已有此教材数量，图书信息的添加人以及添加具体时间等信息。具备修改图书信息功能和按照图书名或者图书作者搜索图书的功能。![](/assets/2017-06-16_133951.png)
 
-###2.数据库BOOK_DETAIL表结构
+###2.数据库BOOK_ORDER表结构
 
 | 字段名|字段类型|说明|
 
 | :---|:---|:---|
+ | ORDER_NO | VARCHAR2(20 BYTE) | 订单编号 |
+ | ORDER_NAME | VARCHAR2(50 BYTE) | 订单名称 |
+ | SUPPLIER_ID | NUMBER(6) | 供应商ID |
+ | STATUS | NUMBER(1) | 状态 0未采购 1采购中 2已采购 |
+ | OPER_USER | VARCHAR2(20 BYTE) | 操作人 |
+ | OPER_DATE | DATE | 操作时间 
+ | TOTAL_PRICE | NUMBER(10,2) | 订单总金额|
 
-|ID | NUMBER(6) | ID|
 
-|BOOK_NAME | VARCHAR2(50 BYTE) | 图书名称|
 
-|AUTHOR | VARCHAR2(50 BYTE) | 作者|
-
-|PUBLISHER | VARCHAR2(200 BYTE) | 出版社|
-
-|PUBLISH_DATE | DATE | 出版日期|
-
-|BOOK_BRIEF | VARCHAR2(500 BYTE) | 图书简介|
-
-|OPER_USER | VARCHAR2(20 BYTE) | 操作人|
-
-|OPER_DATE | DATE | 操作时间|
-
-|TOTAL_COUNT | NUMBER(6) | 当前总册数|
-
-|BOOK_ISBN | VARCHAR2(20 BYTE) | ISBN号码|
 
 
 
 ###3.页面操作流程
 
-####1. 点击新增按钮,在弹出窗口填写供应商信息![](/assets/2017-06-16_135512.png)填写完毕点击提交.
+####1. 点击新增按钮,在弹出窗口填写采购信息![](/assets/2017-06-16_151302.png)填写完毕点击提交.
 
-####2. 选中一条记录,点击修改按钮,在弹出的窗口中对供应商信息进行修改.![](/assets/2017-06-16_135307.png)
+####2. 选中一条记录,点击修改按钮,在弹出的窗口中对订单信息进行修改.![](/assets/2017-06-16_151818.png)
+####3. 点击提交按钮,提交订单信息![](/assets/2017-06-16_153646.png)
+####4. ,在搜索框中输入订单名称进行搜索.![](/assets/2017-06-16_154239.png)
 
-####3. 点击选择按钮,选择按照图书名或作者,在搜索框中输入相应的信息进行搜索.
 
-![](/assets/2017-06-16_135643.png)
