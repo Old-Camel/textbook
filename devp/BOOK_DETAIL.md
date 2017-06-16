@@ -188,3 +188,69 @@
  
 
 ```
+###查询图书树数据
+
+|  参数|说明|
+| :---|:---|
+|bookId|页面传递图书id|
+
+#### 返回值
+
+| 返回值|说明|
+| :---|:---|
+|ArrayList<Tree>|图书树数据|
+
+####代码
+
+```java
+
+   /**
+     * 图书树
+     *
+     */
+    @RequestMapping(value = "/getBookTree", method = RequestMethod.POST)
+    @ResponseBody
+    public Object getUserTree(String bookId) {
+        try {
+            List<Tree> treeList = new ArrayList<Tree>();
+            Tree tree = null;
+
+            Criteria criteria = new Criteria();
+            if (FormatUtil.isNotEmpty(bookId)) {
+                criteria.put("bookId", bookId);
+            }
+            List<BookDetail> list = bookDeatilService.queryListForPage(criteria);
+
+            for (BookDetail bookDetail : list) {
+                String id = String.valueOf(bookDetail.getId());
+                tree = new Tree();
+                tree.setId(id);
+                tree.setText(bookDetail.getBookName());
+                tree.setLeaf(true);
+                treeList.add(tree);
+            }
+            return treeList;
+        } catch (Exception e) {
+            LOGGER.error("分页获取信息出错", e);
+            return new ExceptionReturn(e);
+        }
+
+    }
+
+
+
+ 
+
+```
+###数据库BOOK_DETAIL表结构
+|  字段名|字段类型|说明|
+| :---|:---|:---|
+|ID | NUMBER(6) | ID||BOOK_NAME | VARCHAR2(50 BYTE) | 图书名称|
+|AUTHOR | VARCHAR2(50 BYTE) | 作者|
+|PUBLISHER | VARCHAR2(200 BYTE) | 出版社|
+|PUBLISH_DATE | DATE | 出版日期|
+|BOOK_BRIEF | VARCHAR2(500 BYTE) | 图书简介|
+|OPER_USER | VARCHAR2(20 BYTE) | 操作人|
+|OPER_DATE | DATE | 操作时间|
+|TOTAL_COUNT | NUMBER(6) | 当前总册数|
+|BOOK_ISBN | VARCHAR2(20 BYTE) | ISBN号码|
