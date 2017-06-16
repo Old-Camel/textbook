@@ -1,3 +1,20 @@
-# My Awesome Book
+---
+title: 2017-6-16未命名文件
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+tags: 新建,模板,小书匠
+
+grammar_cjkRuby: true
+---
+
+****
+
+#教材管理应用详细说明
+####教材管理系统要分为六个主要模块
+
+
+
+
+
+供应商信息管理，图书信息管理，教材需求管理，采购，入库，教材领用。以下对各功能模块需求进行具体描述。
+
+
