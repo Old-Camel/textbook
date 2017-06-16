@@ -7,7 +7,6 @@
 ###2.数据库BOOK_ORDER表结构
 
 | 字段名|字段类型|说明|
-
 | :---|:---|:---|
  | ORDER_NO | VARCHAR2(20 BYTE) | 订单编号 |
  | ORDER_NAME | VARCHAR2(50 BYTE) | 订单名称 |
