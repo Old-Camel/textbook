@@ -12,4 +12,4 @@
 
     * [入库](BOOK_STORAGE.md)    
 
-    * [教材领用](BOOK_ORDER.md)
+    * [教材领用](BOOK_TAKE.md)
