@@ -6,7 +6,7 @@
 
     * [图书信息管理](BOOK_DETAIL.md)
 
-    * [教材需求管理](pom文件依赖总结/pom--impl.md)
+    * [教材需求管理](BOOK_REQUIREMENT.md)
 
     * [采购](BOOK_ORDER.md)
 
