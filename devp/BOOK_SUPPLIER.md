@@ -82,7 +82,7 @@
 
 | :---|:---|
 
-|BookDetail|插入数据信息|
+|BookSupplier|插入数据信息|
 
 #### 返回值
 
@@ -96,57 +96,29 @@
 
 ```java
 
-/**
-
-     * 添加
-
-     */
-
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-
-    @ResponseBody
-
-    public ExtReturn insert(BookDetail bookDetail, HttpServletRequest request, HttpSession session) {
-
-        ExtReturn result = null;
-
-        try {
-
-            /** 获取当前用户 */
-
-            BaseUsers user = (BaseUsers) session.getAttribute(
-
-                    WebConstants.CURRENT_USER);
-
-            bookDetail.setOperUser(user);
-
-            int insert = bookDeatilService.insert(bookDetail);
-
-            if (insert > 0) {
-
-                result = new ExtReturn(true, "添加成功");
-
-            } else {
-
-                result = new ExtReturn(false, "添加失败");
-
-            }
-
-            ;
-
-            return result;
-
-        } catch (Exception e) {
-
-            result = new ExtReturn(e);
-
-            LOGGER.error("添加信息出错", e);
-
-            return result;
-
-        }
-
-    }
+/** 添加 */
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn insert(BookSupplier bookSupplier, HttpServletRequest request, HttpSession session) {
+		ExtReturn result = null;
+		try {
+			/** 获取当前用户 */
+			BaseUsers user = (BaseUsers)session.getAttribute(
+ 					WebConstants.CURRENT_USER);
+			bookSupplier.setOperUser(user);
+			 int insert=bookSupplierService.insert(bookSupplier);
+			 if (insert>0) {
+					result=new ExtReturn(true,"添加成功");
+				}else {
+					result=new ExtReturn(false,"添加失败");
+				};
+				return result;
+		} catch (Exception e) {
+			result = new ExtReturn(e);
+			LOGGER.error("添加信息出错", e);
+			return result;
+		}
+	}
 
 ```
 
