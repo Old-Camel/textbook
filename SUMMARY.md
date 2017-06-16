@@ -1,3 +1,15 @@
 # Table of content
 
-* [First Chapter](chapter1.md)
+* [教材管理 ](README.md)
+
+    * [供应商消息管理](.md)
+
+    * [图书信息管理](pom文件依赖总结/pom--api.md)
+
+    * [教材需求管理](pom文件依赖总结/pom--impl.md)
+
+    * [采购](pom文件依赖总结/pom--web.md)
+
+    * [入库](pom文件依赖总结/pom--web.md)    
+
+    * [教材领用](pom文件依赖总结/pom--web.md)
