@@ -10,6 +10,6 @@
 
     * [采购](BOOK_ORDER.md)
 
-    * [入库](pom文件依赖总结/pom--web.md)    
+    * [入库](BOOK_STORAGE.md)    
 
     * [教材领用](pom文件依赖总结/pom--web.md)
