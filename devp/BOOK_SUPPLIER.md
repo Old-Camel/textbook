@@ -79,17 +79,13 @@
 #### 请求参数 
 
 |  参数|说明|
-
 | :---|:---|
-
 |BookSupplier|插入数据信息|
 
 #### 返回值
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否新增成功说明信息|
 
 ####代码
@@ -122,67 +118,40 @@
 
 ```
 
-###删除
+###删除(删除供应商 修改供应商状态0:正常1：删除不显示)
 
 |  参数|说明|
-
 | :---|:---|
-
-|id|图书id|
-
+|BookSupplier  |供应商对象|
 #### 返回值
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否删除成功说明信息|
 
 ####代码
 
 ```java
 
-  /**
-
-     * 删除
-
-     */
-
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-
-    @ResponseBody
-
-    public ExtReturn delete(int id) {
-
-        ExtReturn result = null;
-
-        try {
-
-            int delete = bookDeatilService.delete(id);
-
-            if (delete == 1) {
-
-                result = new ExtReturn(true, "删除成功");
-
-            } else {
-
-                result = new ExtReturn(false, " 删除失败");
-
-            }
-
-            return result;
-
-        } catch (Exception e) {
-
-            LOGGER.error("删除信息出错", e);
-
-            result = new ExtReturn(e);
-
-            return result;
-
-        }
-
-    }
+ /** 删除 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn delete(BookSupplier  bookSupplier) {
+		ExtReturn result = null;
+		try {
+			int delete = bookSupplierService.updateIsdel(bookSupplier);
+			if (delete == 1) {
+				result = new ExtReturn(true, "删除成功");
+			} else {
+				result = new ExtReturn(false, " 删除失败");
+			}
+			return result;
+		} catch (Exception e) {
+			LOGGER.error("删除信息出错", e);
+			result = new ExtReturn(e);
+			return result;
+		}
+	}
 
 ```
 
@@ -197,57 +166,30 @@
 #### 返回值
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否修改成功说明信息|
 
 ####代码
 
 ```java
 
-/**
-
-     * 修改
-
-     */
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-
-    @ResponseBody
-
-    public ExtReturn update(BookDetail bookDetail, HttpServletRequest request) {
-
-        ExtReturn result = null;
-
-        try {
-
-            int update = bookDeatilService.update(bookDetail);
-
-            if (update == 1) {
-
-                result = new ExtReturn(true, "修改成功");
-
-            } else {
-
-                result = new ExtReturn(false, "修改失败");
-
-            }
-
-            return result;
-
-        } catch (Exception e) {
-
-            LOGGER.error("修改信息出错", e);
-
-            result = new ExtReturn(e);
-
-            return result;
-
-        }
-
-    }
-
+public ExtReturn update(BookSupplier bookSupplier, HttpServletRequest request) {
+		ExtReturn result = null;
+		try {
+			
+			int update = bookSupplierService.update(bookSupplier);
+			if (update == 1) {
+				result = new ExtReturn(true, "修改成功");
+			} else {
+				result = new ExtReturn(false, "修改失败");
+			}
+			return result;
+		} catch (Exception e) {
+			LOGGER.error("修改信息出错", e);
+			result = new ExtReturn(e);
+			return result;
+		}
+	}
  
 
 ```
@@ -263,9 +205,7 @@
 #### 返回值
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ArrayList<Tree>|图书树数据|
 
 ####代码
