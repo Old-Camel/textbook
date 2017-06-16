@@ -8,7 +8,7 @@
 
     * [教材需求管理](pom文件依赖总结/pom--impl.md)
 
-    * [采购](pom文件依赖总结/pom--web.md)
+    * [采购](BOOK_ORDER.md)
 
     * [入库](pom文件依赖总结/pom--web.md)    
 
