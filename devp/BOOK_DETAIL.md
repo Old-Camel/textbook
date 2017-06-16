@@ -9,15 +9,182 @@
 | :---|:---|:---|
 |start|0|开始数据行|
 |limit|10|每页显示行数|
-|field|bookName/auther|查询条件|
-#### 返回参数
+|field|bookName/auther/bookIsbn|查询条件|
+#### 返回值
 
-| 参数|参数值|说明|
+| 返回值|说明|
+| :---|:---|
+|ExtGridReturn|包含分页信息数据|
 
-| :---|:---|:---|
+#### 代码
 
-|start|0|开始数据行|
+```java
+ 
+/**
+     * 查询所有并分页
+     */
+    @RequestMapping(value = "/queryListForPage", method = RequestMethod.POST)
+    @ResponseBody
+    public Object queryListForPage(ExtPager pager, HttpServletRequest request,
+                                   HttpSession session, String field, String value, String bookName) {
+        try {
+            Criteria criteria = new Criteria();
+            /** 设置分页信息 */
+            if (pager.getLimit() != null && pager.getStart() != null) {
+                criteria.setStart(pager.getStart());
+                criteria.setLimit(pager.getLimit());
+                criteria.setOracleStart(pager.getStart());
+                criteria.setOracleEnd(pager.getStart() + pager.getLimit());
+            }
 
-|limit|10|每页显示行数|
+            if (StringUtils.isNotEmpty(value)) {
+                if (field.equals("bookName")) {
+                    criteria.put("bookName", value);
+                }
+                if (field.equals("author")) {
+                    criteria.put("author", value);
+                }
+                if (field.equals("bookIsbn")) {
+                    criteria.put("bookIsbn", value);
+                }
+            }
+            if (StringUtils.isNotEmpty(bookName)) {
+                criteria.put("bookName", bookName);
+            }
 
-|field|bookName/auther|查询条件|
+            List<BookDetail> list = bookDeatilService.queryListForPage(criteria);
+            int total = bookDeatilService.getTotalCount(criteria);
+            return new ExtGridReturn(total, list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ExceptionReturn(e);
+        }
+
+    }
+```
+###1.新增
+
+#### 请求url | /textbook/detail/queryListForPage/insert
+
+#### 请求方法 POST
+
+#### 请求参数 
+
+|  参数|说明|
+| :---|:---|
+|BookDetail|插入数据信息|
+
+
+#### 返回值
+| 返回值|说明|
+| :---|:---|
+|ExtReturn|是否新增成功说明信息|
+
+####代码
+
+```java
+/**
+     * 添加
+     */
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @ResponseBody
+    public ExtReturn insert(BookDetail bookDetail, HttpServletRequest request, HttpSession session) {
+        ExtReturn result = null;
+        try {
+            /** 获取当前用户 */
+            BaseUsers user = (BaseUsers) session.getAttribute(
+                    WebConstants.CURRENT_USER);
+            bookDetail.setOperUser(user);
+            int insert = bookDeatilService.insert(bookDetail);
+            if (insert > 0) {
+                result = new ExtReturn(true, "添加成功");
+            } else {
+                result = new ExtReturn(false, "添加失败");
+            }
+            ;
+            return result;
+        } catch (Exception e) {
+            result = new ExtReturn(e);
+            LOGGER.error("添加信息出错", e);
+            return result;
+        }
+    }
+```
+###删除
+|  参数|说明|
+| :---|:---|
+|id|图书id|
+
+
+
+#### 返回值
+| 返回值|说明|
+| :---|:---|
+|ExtReturn|是否删除成功说明信息|
+
+####代码
+
+```java
+  /**
+     * 删除
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ExtReturn delete(int id) {
+        ExtReturn result = null;
+        try {
+            int delete = bookDeatilService.delete(id);
+            if (delete == 1) {
+                result = new ExtReturn(true, "删除成功");
+            } else {
+                result = new ExtReturn(false, " 删除失败");
+            }
+            return result;
+        } catch (Exception e) {
+            LOGGER.error("删除信息出错", e);
+            result = new ExtReturn(e);
+            return result;
+        }
+    }
+```
+###修改
+
+|  参数|说明|
+| :---|:---|
+|BookDetail |页面传递的修改后的图书信息|
+
+
+
+#### 返回值
+| 返回值|说明|
+| :---|:---|
+|ExtReturn|是否修改成功说明信息|
+
+####代码
+
+```java
+/**
+     * 修改
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public ExtReturn update(BookDetail bookDetail, HttpServletRequest request) {
+        ExtReturn result = null;
+        try {
+
+            int update = bookDeatilService.update(bookDetail);
+            if (update == 1) {
+                result = new ExtReturn(true, "修改成功");
+            } else {
+                result = new ExtReturn(false, "修改失败");
+            }
+            return result;
+        } catch (Exception e) {
+            LOGGER.error("修改信息出错", e);
+            result = new ExtReturn(e);
+            return result;
+        }
+    }
+ 
+
+```
