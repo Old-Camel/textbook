@@ -13,7 +13,7 @@
     * [入库](BOOK_STORAGE.md)    
 
     * [教材领用](BOOK_TAKE.md)
-* [教材管理使用 ]()
+* [教材管理使用 ](README.md)
 
     * [供应商消息管理](use/BOOK_SUPPLIER.md)
 
