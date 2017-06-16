@@ -11,110 +11,68 @@
 #### 请求参数 
 
 |  参数|参数值|说明|
-
 | :---|:---|:---|
-
 |start|0|开始数据行|
-
 |limit|10|每页显示行数|
-
-|field|bookName/auther/bookIsbn|查询条件|
+|field|supplierName/isdel/contractUser|查询条件|
 
 #### 返回值
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtGridReturn|包含分页信息数据|
 
 #### 代码
 
 ```java
 
- 
 
-/**
-
-     * 查询所有并分页
-
-     */
-
-    @RequestMapping(value = "/queryListForPage", method = RequestMethod.POST)
-
-    @ResponseBody
-
-    public Object queryListForPage(ExtPager pager, HttpServletRequest request,
-
-                                   HttpSession session, String field, String value, String bookName) {
-
-        try {
-
-            Criteria criteria = new Criteria();
-
-            /** 设置分页信息 */
-
-            if (pager.getLimit() != null && pager.getStart() != null) {
-
-                criteria.setStart(pager.getStart());
-
-                criteria.setLimit(pager.getLimit());
-
-                criteria.setOracleStart(pager.getStart());
-
-                criteria.setOracleEnd(pager.getStart() + pager.getLimit());
-
-            }
-
-            if (StringUtils.isNotEmpty(value)) {
-
-                if (field.equals("bookName")) {
-
-                    criteria.put("bookName", value);
-
-                }
-
-                if (field.equals("author")) {
-
-                    criteria.put("author", value);
-
-                }
-
-                if (field.equals("bookIsbn")) {
-
-                    criteria.put("bookIsbn", value);
-
-                }
-
-            }
-
-            if (StringUtils.isNotEmpty(bookName)) {
-
-                criteria.put("bookName", bookName);
-
-            }
-
-            List<BookDetail> list = bookDeatilService.queryListForPage(criteria);
-
-            int total = bookDeatilService.getTotalCount(criteria);
-
-            return new ExtGridReturn(total, list);
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            return new ExceptionReturn(e);
-
-        }
-
-    }
+/** 查询所有并分页 */
+	@RequestMapping(value = "/queryListForPage", method = RequestMethod.POST)
+	@ResponseBody
+	public Object queryListForPage(ExtPager pager, HttpServletRequest request,
+                                   HttpSession session, String field, String value, String isdel, String supplierName){
+			try {
+				  Criteria criteria= new Criteria();
+				  /** 设置分页信息 */
+				  if (pager.getLimit() != null && pager.getStart() != null) {
+						criteria.setStart(pager.getStart());
+						criteria.setLimit(pager.getLimit());
+						criteria.setOracleStart(pager.getStart());
+						criteria.setOracleEnd(pager.getStart() + pager.getLimit());
+					}
+				 
+				  if (StringUtils.isNotEmpty(value)) {
+						if (field.equals("supplierName")) {
+							criteria.put("supplierName", value);
+						}
+						if (field.equals("contractUser")) {
+							criteria.put("contractUser", value);
+						}
+					}
+				  
+				  if (StringUtils.isNotBlank(isdel)) {
+					  criteria.put("isdel", isdel);
+				}
+					
+				  if (StringUtils.isNotBlank(supplierName)) {
+					  criteria.put("supplierName", supplierName);
+				}
+				  List<BookSupplier> list=bookSupplierService.queryListForPage(criteria);
+				  int total=bookSupplierService.getTotalCount(criteria);
+				  return new ExtGridReturn(total, list);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ExceptionReturn(e);
+			}	
+		
+	}
 
 ```
 
 ###1.新增
 
-#### 请求url | /textbook/detail/queryListForPage/insert
+#### 请求url | /textbook/supplier/queryListForPage/insert
 
 #### 请求方法 POST
 
