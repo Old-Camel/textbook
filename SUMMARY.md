@@ -2,7 +2,7 @@
 
 * [教材管理 ](README.md)
 
-    * [供应商消息管理](.md)
+    * [供应商消息管理](BOOK_SUPPLIER.md)
 
     * [图书信息管理](pom文件依赖总结/pom--api.md)
 
