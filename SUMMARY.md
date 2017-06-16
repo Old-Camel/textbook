@@ -4,7 +4,7 @@
 
     * [供应商消息管理](BOOK_SUPPLIER.md)
 
-    * [图书信息管理](pom文件依赖总结/pom--api.md)
+    * [图书信息管理](BOOK_DETAIL.md)
 
     * [教材需求管理](pom文件依赖总结/pom--impl.md)
 
