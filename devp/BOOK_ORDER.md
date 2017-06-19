@@ -82,7 +82,7 @@
 
 | :---|:---|
 
-|BookDetail|插入数据信息|
+|BookOrder |插入数据信息|
 
 #### 返回值
 
@@ -96,57 +96,45 @@
 
 ```java
 
-/**
+/** 添加 */
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn insert(BookOrder bookOrder, String [] bookIdArray,
+							String[] orderCountArray, String[] priceArray, HttpSession session) {
+		ExtReturn result = null;
+		try {
+			/** 获取当前用户 */
+			BaseUsers user = (BaseUsers) session
+					.getAttribute(WebConstants.CURRENT_USER);
+			String orderNum = getOrderNum(user);
+			bookOrder.setOperUser(user);
+			bookOrder.setOrderNo(orderNum);
+			List<BookOrderList> list = new ArrayList<BookOrderList>();
+			for (int i = 0; i < orderCountArray.length; i++) {
+				BookDetail book= new BookDetail();
+				BookOrderList temp = new BookOrderList();
+				book.setId(Integer.parseInt(bookIdArray[i]));
+				temp.setBookPrice(Double.parseDouble(priceArray[i]));
+				temp.setOrderCount(Integer.parseInt(orderCountArray[i]));
+				temp.setOrderNo(orderNum);
+				temp.setBook(book);
+				list.add(temp);
+			}
+			bookOrder.setList(list);
+			int insert = bookOrdertService.insert(bookOrder);
+			if (insert > 0) {
+				result = new ExtReturn(true, "添加成功");
+			} else {
+				result = new ExtReturn(false, "添加失败");
+			}			
+			return result;
+		} catch (Exception e) {
+			result = new ExtReturn(e);
+			LOGGER.error("添加信息出错", e);
+			return result;
+		}
+	}
 
-     * 添加
-
-     */
-
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-
-    @ResponseBody
-
-    public ExtReturn insert(BookDetail bookDetail, HttpServletRequest request, HttpSession session) {
-
-        ExtReturn result = null;
-
-        try {
-
-            /** 获取当前用户 */
-
-            BaseUsers user = (BaseUsers) session.getAttribute(
-
-                    WebConstants.CURRENT_USER);
-
-            bookDetail.setOperUser(user);
-
-            int insert = bookDeatilService.insert(bookDetail);
-
-            if (insert > 0) {
-
-                result = new ExtReturn(true, "添加成功");
-
-            } else {
-
-                result = new ExtReturn(false, "添加失败");
-
-            }
-
-            ;
-
-            return result;
-
-        } catch (Exception e) {
-
-            result = new ExtReturn(e);
-
-            LOGGER.error("添加信息出错", e);
-
-            return result;
-
-        }
-
-    }
 
 ```
 
