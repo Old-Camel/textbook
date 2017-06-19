@@ -26,7 +26,7 @@
 | :---|:---|:---|
 |start|0|开始数据行|
 |limit|20|每页显示行数|
-|orderNo|startDate/isdel/contractUser|查询条件|
+|field|user/signed/deptName/isAdmin/realName|查询条件|
 
 
 
@@ -41,17 +41,17 @@
 
 
 #### 代码
-
-
-
 ```java
-/** 查询所有并分页 */
+
+	/** 查询所有并分页 */
 	@RequestMapping(value = "/queryListForPage", method = RequestMethod.POST)
 	@ResponseBody
 	public Object queryListForPage(ExtPager pager, HttpServletRequest request,
-								   HttpSession session, String field, String value , Date todate, Date startDate){
+								   HttpSession session, String signed, String deptName, String isAdmin, String field, String value){
 			try {
 				  Criteria criteria= new Criteria();
+				  BaseUsers user = (BaseUsers)session.getAttribute(
+		 					WebConstants.CURRENT_USER);
 				  /** 设置分页信息 */
 				  if (pager.getLimit() != null && pager.getStart() != null) {
 						criteria.setStart(pager.getStart());
@@ -59,36 +59,37 @@
 						criteria.setOracleStart(pager.getStart());
 						criteria.setOracleEnd(pager.getStart() + pager.getLimit());
 					}
-				  if (StringUtils.isNotEmpty(value)) {
-						if (field.equals("orderNo")) {
-							criteria.put("orderNo", value);
-						}
-						if (field.equals("orderNo")) {
-							criteria.put("orderName", value);
-						}
-				  
-				  }
-                        if (startDate!=null) {
-					  /**时间加一天**/
-					  Calendar rightNow = Calendar.getInstance();
-				        rightNow.setTime(startDate);
-				        rightNow.add(Calendar.DAY_OF_YEAR,1);//日期加1天
-				        Date dt1=rightNow.getTime();
-				        String  da= dFormat.format(dt1);
-				        Date end = dFormat.parse(da);
-				        
-						criteria.put("today", startDate);
-						criteria.put("end", end);
+				  if (user!=null) {
+						criteria.put("user", user.getAccount());
 					}
-				 
-				  List<BookStorage> list=bookStorageService.queryListForPage(criteria);
-				  int total=bookStorageService.getTotalCount(criteria);
+				  if (StringUtils.isNotEmpty(signed)) {
+						criteria.put("signed", signed);
+					}
+				  if (StringUtils.isNotEmpty(deptName)) {
+						criteria.put("deptName", deptName);
+					}
+				  if (StringUtils.isNotEmpty(isAdmin)) {
+						criteria.put("isAdmin", isAdmin);
+					}
+				  
+				  if (StringUtils.isNotEmpty(value)) {
+						if (field.equals("deptName")) {
+							criteria.put("deptName", value);
+						}
+						if (field.equals("realName")) {
+							criteria.put("realName", value);
+						}
+					}
+				  List<BookRequirement> list=bookRequirementService.queryListForPage(criteria);
+				  int total=bookRequirementService.getTotalCount(criteria);
 				  return new ExtGridReturn(total, list);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return new ExceptionReturn(e);
 			}	
-}
+		
+	}
+
 
 
 
