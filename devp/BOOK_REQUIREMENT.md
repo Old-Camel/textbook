@@ -238,7 +238,7 @@
 
 ###修改
 
-#### 请求url | /textbook/supplier/update
+#### 请求url | /textbook/bookRequirement/update
 
 
 | 参数|说明|
