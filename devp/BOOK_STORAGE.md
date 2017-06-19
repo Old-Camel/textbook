@@ -186,6 +186,7 @@
 ```
 
 ###修改
+#### 请求url | /textbook/storage/update
 
 | 参数|说明|
 | :---|:---|
