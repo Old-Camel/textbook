@@ -130,9 +130,7 @@
 
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否新增成功说明信息|
 
 
@@ -145,53 +143,41 @@
 
 
 
-/** 添加 */
-
- @RequestMapping(value = "/insert", method = RequestMethod.POST)
-
- @ResponseBody
-
- public ExtReturn insert(BookSupplier bookSupplier, HttpServletRequest request, HttpSession session) {
-
- ExtReturn result = null;
-
- try {
-
- /** 获取当前用户 */
-
- BaseUsers user = (BaseUsers)session.getAttribute(
-
- WebConstants.CURRENT_USER);
-
- bookSupplier.setOperUser(user);
-
- int insert=bookSupplierService.insert(bookSupplier);
-
- if (insert>0) {
-
- result=new ExtReturn(true,"添加成功");
-
- }else {
-
- result=new ExtReturn(false,"添加失败");
-
- };
-
- return result;
-
- } catch (Exception e) {
-
- result = new ExtReturn(e);
-
- LOGGER.error("添加信息出错", e);
-
- return result;
-
- }
-
- }
-
-
+添加 */
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn insert(BookRequirement bookRequirement,
+							String [] bookIdArray, String [] applyCountArray, HttpSession session) {
+		ExtReturn result = null;
+		try {
+			List<BookRequirementList> requirementList=new ArrayList<BookRequirementList>();
+			
+			/** 获取当前用户 */
+			BaseUsers user = (BaseUsers)session.getAttribute(
+ 					WebConstants.CURRENT_USER);
+			bookRequirement.setApplyUser(user);
+			for(int i=0;i<bookIdArray.length;i++){
+				BookRequirementList temp = new BookRequirementList();
+				BookDetail book=new BookDetail();
+				book.setId(Integer.parseInt(bookIdArray[i]));
+				temp.setApplyCount(Integer.parseInt(applyCountArray[i]));
+				temp.setBook(book);
+				requirementList.add(temp);
+			}
+			bookRequirement.setRequirementList(requirementList);
+			 int insert=bookRequirementService.insert(bookRequirement);
+			 if (insert>0) {
+					result=new ExtReturn(true,"添加成功");
+				}else {
+					result=new ExtReturn(false,"添加失败");
+				};
+				return result;
+		} catch (Exception e) {
+			result = new ExtReturn(e);
+			LOGGER.error("添加信息出错", e);
+			return result;
+		}
+	}
 
 ```
 
@@ -225,45 +211,28 @@
 
 ```java
 
+/** 删除 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn delete(int id) {
+		ExtReturn result = null;
+		try {
+			
+			int delete = bookRequirementService.delete(id);
+			if (delete == 1) {
+				result = new ExtReturn(true, "删除成功");
+			} else {
+				result = new ExtReturn(false, " 删除失败");
+			}
+			return result;
+		} catch (Exception e) {
+			LOGGER.error("删除信息出错", e);
+			result = new ExtReturn(e);
+			return result;
+		}
+	}
+	
 
-
- /** 删除 */
-
- @RequestMapping(value = "/delete", method = RequestMethod.POST)
-
- @ResponseBody
-
- public ExtReturn delete(BookSupplier bookSupplier) {
-
- ExtReturn result = null;
-
- try {
-
- int delete = bookSupplierService.updateIsdel(bookSupplier);
-
- if (delete == 1) {
-
- result = new ExtReturn(true, "删除成功");
-
- } else {
-
- result = new ExtReturn(false, " 删除失败");
-
- }
-
- return result;
-
- } catch (Exception e) {
-
- LOGGER.error("删除信息出错", e);
-
- result = new ExtReturn(e);
-
- return result;
-
- }
-
- }
 
 
 
@@ -276,9 +245,7 @@
 
 
 | 参数|说明|
-
 | :---|:---|
-
 |BookSupplier |页面传递的修改后的供应商信息|
 
 
@@ -288,9 +255,7 @@
 
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否修改成功说明信息|
 
 
@@ -303,46 +268,120 @@
 
 
 
-public ExtReturn update(BookSupplier bookSupplier, HttpServletRequest request) {
+	/** 修改 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn update(BookRequirement bookRequirement, 
+			 String [] bookIdArray,String [] applyCountArray) {
+		ExtReturn result = null;
+		try {
+			List<BookRequirementList> requirementList=new ArrayList<BookRequirementList>();
+			if(bookIdArray.length!=0){
+				for(int i=0;i<bookIdArray.length;i++){
+					BookRequirementList temp = new BookRequirementList();
+					BookDetail book=new BookDetail();
+					book.setId(Integer.parseInt(bookIdArray[i]));
+					temp.setApplyCount(Integer.parseInt(applyCountArray[i]));
+					temp.setBook(book);
+					requirementList.add(temp);
+				}
+				bookRequirement.setRequirementList(requirementList);
+			}
+			int update = bookRequirementService.update(bookRequirement);
+			if (update == 1) {
+				result = new ExtReturn(true, "修改成功");
+			} else {
+				result = new ExtReturn(false, "修改失败");
+			}
+			return result;
+		} catch (Exception e) {
+			LOGGER.error("修改信息出错", e);
+			result = new ExtReturn(e);
+			return result;
+		}
+	}
 
- ExtReturn result = null;
 
- try {
-
-
-
- int update = bookSupplierService.update(bookSupplier);
-
- if (update == 1) {
-
- result = new ExtReturn(true, "修改成功");
-
- } else {
-
- result = new ExtReturn(false, "修改失败");
-
- }
-
- return result;
-
- } catch (Exception e) {
-
- LOGGER.error("修改信息出错", e);
-
- result = new ExtReturn(e);
-
- return result;
-
- }
-
- }
 
 
 
 
 
 ```
+###审核
+| 参数|说明|
+| :---|:---|
+|status/id|申请状态/申请id|
+#### 返回值
+| 返回值|说明|
+| :---|:---|
+|ExtReturn|是否审核成功说明信息|
 
+```java
+/** 审核 */
+
+	@RequestMapping(value = "/examine", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn audit(BookRequirement bookRequirement, HttpServletRequest request,int status,HttpSession session,int id) {
+		ExtReturn result = null;
+		try {
+			bookRequirement.setStatus(status);
+			bookRequirement.setId(id);
+			
+			/** 获取当前用户 */
+			BaseUsers user = (BaseUsers)session.getAttribute(
+ 					WebConstants.CURRENT_USER);
+			bookRequirement.setCheckUser(user);
+			int update = bookRequirementService.examine(bookRequirement);
+			if (update ==1) {
+				result = new ExtReturn(true, " 操作成功");
+			} else {
+				result = new ExtReturn(false, "操作失败");
+			}
+			return result;
+		} catch (Exception e) {
+			LOGGER.error("修改信息出错", e);
+			result = new ExtReturn(e);
+			return result;
+		}
+
+	}
+```
+###提交
+| 参数|说明|
+| :---|:---|
+|status/id|申请状态/申请id|
+#### 返回值
+| 返回值|说明|
+| :---|:---|
+|ExtReturn|是否审核成功说明信息|
+
+```java
+
+/**提交按钮**/
+	@RequestMapping(value = "/sub", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn sub(BookRequirement bookRequirement, HttpServletRequest request,int status,HttpSession session,int id) {
+		ExtReturn result = null;
+		try {
+			bookRequirement.setStatus(status);
+			bookRequirement.setId(id);
+		int update = bookRequirementService.sub(bookRequirement);
+			if (update ==1) {
+				result = new ExtReturn(true, " 操作成功");
+			} else {
+				result = new ExtReturn(false, "操作失败");
+			}
+			return result;
+		} catch (Exception e) {
+			LOGGER.error("修改信息出错", e);
+			result = new ExtReturn(e);
+			return result;
+		}
+
+	}
+	
+```
 ####数据库BOOK_SUPPLIER表结构
 
 | 字段名|字段类型|说明|
