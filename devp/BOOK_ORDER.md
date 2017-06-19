@@ -237,83 +237,45 @@
 
 ```
 
-###查询图书树数据
+###提交
 
-|  参数|说明|
-
+| 参数|说明|
 | :---|:---|
-
-|bookId|页面传递图书id|
-
+|status/orderNo|订单状态/申请id|
 #### 返回值
-
 | 返回值|说明|
-
 | :---|:---|
+|ExtReturn|是否审核成功说明信息|
 
-|ArrayList<Tree>|图书树数据|
 
 ####代码
 
 ```java
+/**提交按钮**/
+	@RequestMapping(value = "/sub", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn sub(BookOrder bookOrder, HttpServletRequest request,int status,HttpSession session,String orderNo) {
+		ExtReturn result = null;
+		try {
+			bookOrder.setStatus(status);
+			bookOrder.setOrderNo(orderNo);;
+		int update = bookOrdertService.sub(bookOrder);
+			if (update ==1) {
+				result = new ExtReturn(true, " 操作成功");
+			} else {
+				result = new ExtReturn(false, "操作失败");
+			}
+			return result;
+		} catch (Exception e) {
+			LOGGER.error("修改信息出错", e);
+			result = new ExtReturn(e);
+			return result;
+		}
 
-   /**
+	}
+   
 
-     * 图书树
-
-     *
-
-     */
-
-    @RequestMapping(value = "/getBookTree", method = RequestMethod.POST)
-
-    @ResponseBody
-
-    public Object getUserTree(String bookId) {
-
-        try {
-
-            List<Tree> treeList = new ArrayList<Tree>();
-
-            Tree tree = null;
-
-            Criteria criteria = new Criteria();
-
-            if (FormatUtil.isNotEmpty(bookId)) {
-
-                criteria.put("bookId", bookId);
-
-            }
-
-            List<BookDetail> list = bookDeatilService.queryListForPage(criteria);
-
-            for (BookDetail bookDetail : list) {
-
-                String id = String.valueOf(bookDetail.getId());
-
-                tree = new Tree();
-
-                tree.setId(id);
-
-                tree.setText(bookDetail.getBookName());
-
-                tree.setLeaf(true);
-
-                treeList.add(tree);
-
-            }
-
-            return treeList;
-
-        } catch (Exception e) {
-
-            LOGGER.error("分页获取信息出错", e);
-
-            return new ExceptionReturn(e);
-
-        }
-
-    }
+        
 
  
 
