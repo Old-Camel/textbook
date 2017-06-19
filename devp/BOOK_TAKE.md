@@ -101,7 +101,7 @@
 
 ###1.新增
 
-#### 请求url | /storage/supplier/queryListForPage/insert
+#### 请求url | /textbook/take/queryListForPage/insert
 
 #### 请求方法 POST
 
@@ -169,21 +169,14 @@
 ###删除(删除供应商 修改供应商状态0:正常1：删除不显示)
 
 | 参数|说明|
-
 | :---|:---|
-
 |id|领取记录 id|
-
+|url | /textbook/take/queryListForPage/insert|
 #### 返回值
-
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否删除成功说明信息|
-
 ####代码
-
 ```java
 
 
