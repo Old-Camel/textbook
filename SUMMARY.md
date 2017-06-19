@@ -6,7 +6,7 @@
 
     * [图书信息管理](devp/BOOK_DETAIL.md)
 
-    * [教材需求管理]devp/(BOOK_REQUIREMENT.md)
+    * [教材需求管理](devp/BOOK_REQUIREMENT.md)
 
     * [采购](devp/BOOK_ORDER.md)
 
