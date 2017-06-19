@@ -10,7 +10,7 @@
 
 
 
-#### 请求url | /textbook/supplier/queryListForPage
+#### 请求url | /textbook/storage/queryListForPage
 
 
 
