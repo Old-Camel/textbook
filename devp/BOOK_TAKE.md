@@ -165,7 +165,7 @@
 | 参数|说明|
 | :---|:---|
 |id|领取记录 id|
-|url | /textbook/take/insert|
+
 #### 返回值
 | 返回值|说明|
 | :---|:---|
@@ -202,11 +202,12 @@
 ```
 
 ###修改
+|url | /textbook/take/update
 
 | 参数|说明|
 | :---|:---|
 |BookTake |页面传递的修改后的领取信息|
-|url | /textbook/take/update
+
 
 #### 返回值
 
