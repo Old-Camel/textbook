@@ -382,31 +382,18 @@
 	}
 	
 ```
-####数据库BOOK_SUPPLIER表结构
-
+###数据库BOOK_REQUIREMENT表结构
 | 字段名|字段类型|说明|
-
 | :---|:---|:---|
-
-| NUMBER(6) | ID | 供应商ID|
-
-| VARCHAR2(100 BYTE) | SUPPLIER_NAME | 供应商名|
-
-| VARCHAR2(50 BYTE) | SUPPLIER_ORPORATE | 法人代表|
-
-| VARCHAR2(50 BYTE) | ORGANIZE_CODE | 组织机构代码|
-
-| VARCHAR2(200 BYTE) | SUPPLIER_ADDRESS | 供应商地址|
-
-| VARCHAR2(20 BYTE) | CONTRACT_USER | 联系人|
-
-| VARCHAR2(20 BYTE) | CONTRACT_PHONE | 联系电话|
-
-| VARCHAR2(20 BYTE) | OPER_USER | 操作人|
-
-| DATE | OPER_DATE | 操作时间|
-
-| NUMBER(1) NULL | ISDEL | 0:正常 1:删除|
+|ID       |          NUMBER(6)          |               主键              
+|BOOK_ID     |          NUMBER(6)          |               图书ID           
+|DEPT_ID     |     VARCHAR2(50 BYTE)  |               部门的ID        
+|APPLY_USER     |   VARCHAR2(50 BYTE)  |               申请人              |STATUS     |    NUMBER(1) |  申请状态 0未审核 审核通过 2审核不通过3         
+|CHECK_USER     |       VARCHAR2(20 BYTE)  |               审核人              |CHECK_DATE     |          DATE               |               审核时间              |CHECK_RESON     |          VARCHAR2(500 BYTE) |               审核不通过原因              |NOTE     |          VARCHAR2(200 BYTE) |               备注              
+|APPLY_TYPE|NUMBER(1)      |    申请类型 1教师需求 2学生需求              
+|IS_ORDER |NUMBER(6)| 是否已经采购 1是，0否             
+|STOCK_COUNT| NUMBER(6) |    库存数量              
+|APPLY_COUNT     |          NUMBER(6)          |               申请总数             |APPLY_DATE     |          DATE               |               申请时间              |APPLY_REASON     |          VARCHAR2(400 BYTE) |               申请原因     
 
 
 
