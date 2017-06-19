@@ -84,7 +84,7 @@
 
 ###1.新增
 
-#### 请求url | /storage/supplier/queryListForPage/insert
+#### 请求url | /textbook/storage/insert
 
 #### 请求方法 POST
 
