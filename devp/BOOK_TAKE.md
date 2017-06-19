@@ -1,6 +1,6 @@
 ****
 
-#入库
+#教材领用
 
 ###1.获取页面分页信息
 
@@ -220,7 +220,7 @@
 
 | :---|:---|
 
-|BookStorage |页面传递的修改后的入库信息|
+|BookTake |页面传递的修改后的领取信息|
 
 #### 返回值
 
@@ -234,47 +234,27 @@
 
 ```java
 
-/** 修改 */
 
+	/** 修改 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-
 	@ResponseBody
-
-	public ExtReturn update(BookStorage bookStorage, HttpServletRequest request) {
-
+	public ExtReturn update(BookTake bookTake, HttpServletRequest request) {
 		ExtReturn result = null;
-
 		try {
 
-			
-
-			int update = bookStorageService.update(bookStorage);
-
+			int update = bookTakeService.update(bookTake);
 			if (update == 1) {
-
 				result = new ExtReturn(true, "修改成功");
-
 			} else {
-
 				result = new ExtReturn(false, "修改失败");
-
 			}
-
 			return result;
-
 		} catch (Exception e) {
-
 			LOGGER.error("修改信息出错", e);
-
 			result = new ExtReturn(e);
-
 			return result;
-
 		}
-
-	}	
-
-	
+	}
 
 ```
 
