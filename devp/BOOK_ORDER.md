@@ -187,64 +187,51 @@
 ###修改
 
 |  参数|说明|
-
 | :---|:---|
-
-|BookDetail |页面传递的修改后的图书信息|
+|BookOrder |页面传递的修改后的图书信息|
 
 #### 返回值
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否修改成功说明信息|
 
 ####代码
 
 ```java
 
-/**
-
-     * 修改
-
-     */
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-
-    @ResponseBody
-
-    public ExtReturn update(BookDetail bookDetail, HttpServletRequest request) {
-
-        ExtReturn result = null;
-
-        try {
-
-            int update = bookDeatilService.update(bookDetail);
-
-            if (update == 1) {
-
-                result = new ExtReturn(true, "修改成功");
-
-            } else {
-
-                result = new ExtReturn(false, "修改失败");
-
-            }
-
-            return result;
-
-        } catch (Exception e) {
-
-            LOGGER.error("修改信息出错", e);
-
-            result = new ExtReturn(e);
-
-            return result;
-
-        }
-
-    }
+/** 修改 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn update(BookOrder bookOrder,String [] bookIdArray,
+			String[] orderCountArray, String[] priceArray, HttpServletRequest request) {
+		ExtReturn result = null;
+		try {
+			List<BookOrderList> list = new ArrayList<BookOrderList>();
+			for (int i = 0; i < orderCountArray.length; i++) {
+				BookDetail book= new BookDetail();
+				BookOrderList temp = new BookOrderList();
+				book.setId(Integer.parseInt(bookIdArray[i]));
+				temp.setBookPrice(Double.parseDouble(priceArray[i]));
+				temp.setOrderCount(Integer.parseInt(orderCountArray[i]));
+				temp.setOrderNo(bookOrder.getOrderNo());
+				temp.setBook(book);
+				list.add(temp);
+			}
+			bookOrder.setList(list);
+			int update = bookOrdertService.update(bookOrder);
+			if (update == 1) {
+				result = new ExtReturn(true, "修改成功");
+			} else {
+				result = new ExtReturn(false, "修改失败");
+			}
+			return result;
+		} catch (Exception e) {
+			LOGGER.error("修改信息出错", e);
+			result = new ExtReturn(e);
+			return result;
+		}
+	}
 
  
 
