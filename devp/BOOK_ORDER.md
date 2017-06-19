@@ -144,7 +144,7 @@
 
 | :---|:---|
 
-|id|图书id|
+|id|订单id|
 
 #### 返回值
 
@@ -158,47 +158,29 @@
 
 ```java
 
-  /**
+/** 删除 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtReturn delete(int id) {
+		ExtReturn result = null;
+		try {
+			int delete = bookOrdertService.delete(id);
+			if (delete == 1) {
+				result = new ExtReturn(true, "删除成功");
+			} else {
+				result = new ExtReturn(false, " 删除失败");
+			}
+			return result;
+		} catch (Exception e) {
+			LOGGER.error("删除信息出错", e);
+			result = new ExtReturn(e);
+			return result;
+		}
+	}
 
-     * 删除
 
-     */
+         
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-
-    @ResponseBody
-
-    public ExtReturn delete(int id) {
-
-        ExtReturn result = null;
-
-        try {
-
-            int delete = bookDeatilService.delete(id);
-
-            if (delete == 1) {
-
-                result = new ExtReturn(true, "删除成功");
-
-            } else {
-
-                result = new ExtReturn(false, " 删除失败");
-
-            }
-
-            return result;
-
-        } catch (Exception e) {
-
-            LOGGER.error("删除信息出错", e);
-
-            result = new ExtReturn(e);
-
-            return result;
-
-        }
-
-    }
 
 ```
 
