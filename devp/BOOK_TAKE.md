@@ -101,24 +101,19 @@
 
 ###1.新增
 
-#### 请求url | /textbook/take/queryListForPage/insert
+#### 请求url | /textbook/take/insert
 
 #### 请求方法 POST
 
 #### 请求参数
-
 | 参数|说明
-
 | :---|:---|
-
 |BookTake |插入数据信息|
 
 #### 返回值
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否新增成功说明信息|
 
 ####代码
@@ -171,7 +166,7 @@
 | 参数|说明|
 | :---|:---|
 |id|领取记录 id|
-|url | /textbook/take/queryListForPage/insert|
+|url | /textbook/take/insert|
 #### 返回值
 | 返回值|说明|
 | :---|:---|
@@ -210,10 +205,9 @@
 ###修改
 
 | 参数|说明|
-
 | :---|:---|
-
 |BookTake |页面传递的修改后的领取信息|
+|url | /textbook/take/update
 
 #### 返回值
 
