@@ -157,6 +157,7 @@
 ```
 
 ###修改
+#### 请求url | /textbook/supplier/update
 
 |  参数|说明|
 | :---|:---|
