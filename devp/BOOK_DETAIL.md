@@ -64,7 +64,7 @@
 ```
 ###1.新增
 
-#### 请求url | /textbook/detail/queryListForPage/insert
+#### 请求url | /textbook/detail/insert
 
 #### 请求方法 POST
 
@@ -111,6 +111,8 @@
     }
 ```
 ###删除
+#### 请求url | /textbook/detail/delete
+
 |  参数|说明|
 | :---|:---|
 |id|图书id|
@@ -148,6 +150,7 @@
     }
 ```
 ###修改
+#### 请求url | /textbook/detail/update
 
 |  参数|说明|
 | :---|:---|
@@ -189,6 +192,7 @@
 
 ```
 ###查询图书树数据
+#### 请求url | /textbook/detail/getBookTree
 
 |  参数|说明|
 | :---|:---|
