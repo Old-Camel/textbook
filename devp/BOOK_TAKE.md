@@ -259,16 +259,14 @@
 ```
 
 	
-
- ###数据库BOOK_STORAGE表结构
-
+###数据库BOOK_TAKE表结构
 | 字段名|字段类型|说明|
-| :---|:---|:---|
-|ID           |   NUMBER(6)          |     入库编号|
-|ORDER_NO     |   VARCHAR2(100 BYTE) |       订单编号|
-|BOOK_ID      |   NUMBER(6)          |       图书ID|
-|STORAGE_COUNT|   NUMBER(6)          |     入库数量|
-|STORAGE_DATE |   DATE               |     入库时间|
-|OPER_USER    |   VARCHAR2(50 BYTE)  |        操作人|
-
+| :---|:---|:---
+ |ID |NUMBER(6) | ID |
+ |BOOK_ID |NUMBER(6)|  图书ID |
+ |TAKE_USER |VARCHAR2(50 BYTE) | 领取人 |
+ |TAKE_COUNT |NUMBER(6) | 领取数量 |
+ |TAKE_USER_PHONE |VARCHAR2(50 BYTE) | 领取人电话
+ |OPER_USER |VARCHAR2(20 BYTE) | 操作人 |
+ |OPER_DATE |DATE NULL | 操作时间 |
 
