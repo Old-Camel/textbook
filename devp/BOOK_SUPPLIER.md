@@ -161,7 +161,7 @@
 
 | :---|:---|
 
-|BookDetail |页面传递的修改后的图书信息|
+|BookSupplier |页面传递的修改后的图书信息|
 
 #### 返回值
 
@@ -193,108 +193,18 @@ public ExtReturn update(BookSupplier bookSupplier, HttpServletRequest request) {
  
 
 ```
-
-###查询图书树数据
-
-|  参数|说明|
-
-| :---|:---|
-
-|bookId|页面传递图书id|
-
-#### 返回值
-
-| 返回值|说明|
-| :---|:---|
-|ArrayList<Tree>|图书树数据|
-
-####代码
-
-```java
-
-   /**
-
-     * 图书树
-
-     *
-
-     */
-
-    @RequestMapping(value = "/getBookTree", method = RequestMethod.POST)
-
-    @ResponseBody
-
-    public Object getUserTree(String bookId) {
-
-        try {
-
-            List<Tree> treeList = new ArrayList<Tree>();
-
-            Tree tree = null;
-
-            Criteria criteria = new Criteria();
-
-            if (FormatUtil.isNotEmpty(bookId)) {
-
-                criteria.put("bookId", bookId);
-
-            }
-
-            List<BookDetail> list = bookDeatilService.queryListForPage(criteria);
-
-            for (BookDetail bookDetail : list) {
-
-                String id = String.valueOf(bookDetail.getId());
-
-                tree = new Tree();
-
-                tree.setId(id);
-
-                tree.setText(bookDetail.getBookName());
-
-                tree.setLeaf(true);
-
-                treeList.add(tree);
-
-            }
-
-            return treeList;
-
-        } catch (Exception e) {
-
-            LOGGER.error("分页获取信息出错", e);
-
-            return new ExceptionReturn(e);
-
-        }
-
-    }
-
- 
-
-```
-
-###数据库BOOK_DETAIL表结构
-
-|  字段名|字段类型|说明|
-
+####数据库BOOK_SUPPLIER表结构
+| 字段名|字段类型|说明|
 | :---|:---|:---|
+| NUMBER(6) | ID | 供应商ID|
+| VARCHAR2(100 BYTE) | SUPPLIER_NAME | 供应商名|
+| VARCHAR2(50 BYTE) | SUPPLIER_ORPORATE | 法人代表|
+| VARCHAR2(50 BYTE) | ORGANIZE_CODE | 组织机构代码|
+| VARCHAR2(200 BYTE) | SUPPLIER_ADDRESS | 供应商地址|
+| VARCHAR2(20 BYTE) | CONTRACT_USER | 联系人|
+| VARCHAR2(20 BYTE) | CONTRACT_PHONE | 联系电话|
+| VARCHAR2(20 BYTE) | OPER_USER | 操作人|
+| DATE | OPER_DATE | 操作时间|
+| NUMBER(1) NULL | ISDEL | 0:正常 1:删除|
 
-|ID | NUMBER(6) | ID||BOOK_NAME | VARCHAR2(50 BYTE) | 图书名称|
-
-|AUTHOR | VARCHAR2(50 BYTE) | 作者|
-
-|PUBLISHER | VARCHAR2(200 BYTE) | 出版社|
-
-|PUBLISH_DATE | DATE | 出版日期|
-
-|BOOK_BRIEF | VARCHAR2(500 BYTE) | 图书简介|
-
-|OPER_USER | VARCHAR2(20 BYTE) | 操作人|
-
-|OPER_DATE | DATE | 操作时间|
-
-|TOTAL_COUNT | NUMBER(6) | 当前总册数|
-
-|BOOK_ISBN | VARCHAR2(20 BYTE) | ISBN号码|
 
