@@ -10,7 +10,7 @@
 
 
 
-#### 请求url | /textbook/storage/queryListForPage
+#### 请求url | /textbook/bookRequirement/queryListForPage
 
 
 
@@ -105,7 +105,7 @@
 
 
 
-#### 请求url | /textbook/supplier/queryListForPage/insert
+#### 请求url | /textbook/bookRequirement/insert
 
 
 
@@ -121,7 +121,7 @@
 
 | :---|:---|
 
-|BookSupplier|插入数据信息|
+|bookRequirement|插入数据信息|
 
 
 
@@ -185,22 +185,18 @@
 
 ###删除(删除供应商 修改供应商状态0:正常1：删除不显示)
 
+#### 请求url | /textbook/bookRequirement/delete
 
 
 | 参数|说明|
-
 | :---|:---|
-
-|BookSupplier |供应商对象|
-
+|bookRequirement|供应商对象|
 #### 返回值
 
 
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否删除成功说明信息|
 
 
@@ -242,6 +238,7 @@
 
 ###修改
 
+#### 请求url | /textbook/supplier/update
 
 
 | 参数|说明|
@@ -309,6 +306,8 @@
 
 ```
 ###审核
+#### 请求url | /textbook/supplier/examine
+
 | 参数|说明|
 | :---|:---|
 |status/id|申请状态/申请id|
@@ -348,6 +347,8 @@
 	}
 ```
 ###提交
+#### 请求url | /textbook/supplier/sub
+
 | 参数|说明|
 | :---|:---|
 |status/id|申请状态/申请id|
