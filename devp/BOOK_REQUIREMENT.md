@@ -190,7 +190,7 @@
 
 | 参数|说明|
 | :---|:---|
-|bookRequirement|供应商对象|
+|bookRequirement|教材需求对象|
 #### 返回值
 
 
