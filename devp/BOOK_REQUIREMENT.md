@@ -306,7 +306,7 @@
 
 ```
 ###审核
-#### 请求url | /textbook/supplier/examine
+#### 请求url | /textbook/bookRequirement/examine
 
 | 参数|说明|
 | :---|:---|
@@ -347,7 +347,7 @@
 	}
 ```
 ###提交
-#### 请求url | /textbook/supplier/sub
+#### 请求url | /textbook/bookRequirement/sub
 
 | 参数|说明|
 | :---|:---|
