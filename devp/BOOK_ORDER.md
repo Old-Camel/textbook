@@ -129,7 +129,7 @@
 ```
 
 ###删除
-#### 请求url | /textbook/detail/delete
+#### 请求url | /textbook/order/delete
 
 |  参数|说明|
 | :---|:---|
@@ -171,7 +171,7 @@
 ```
 
 ###修改
-#### 请求url | /textbook/detail/update
+#### 请求url | /textbook/order/update
 
 |  参数|说明|
 | :---|:---|
@@ -225,7 +225,7 @@
 ```
 
 ###提交
-#### 请求url | /textbook/detail/sub
+#### 请求url | /textbook/order/sub
 
 | 参数|说明|
 | :---|:---|
