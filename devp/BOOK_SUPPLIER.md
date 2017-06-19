@@ -72,7 +72,7 @@
 
 ###1.新增
 
-#### 请求url | /textbook/supplier/queryListForPage/insert
+#### 请求url | /textbook/supplier/insert
 
 #### 请求方法 POST
 
@@ -119,6 +119,7 @@
 ```
 
 ###删除(删除供应商 修改供应商状态0:正常1：删除不显示)
+#### 请求url | /textbook/supplier/delete
 
 |  参数|说明|
 | :---|:---|
