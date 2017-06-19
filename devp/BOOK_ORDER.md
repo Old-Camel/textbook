@@ -82,7 +82,7 @@
 
 | :---|:---|
 
-|BookOrder |插入数据信息|
+|BookOrder/bookIdArray/orderCountArray |插入数据信息|
 
 #### 返回值
 
