@@ -56,8 +56,6 @@
 
 
 
-/** 查询所有并分页 */@RequestMapping(value = "/queryListForPage", method = RequestMethod.POST)@ResponseBodypublic Object queryListForPage(ExtPager pager, HttpServletRequest request, HttpSession session, String field, String value , Date todate, Date startDate){ try { Criteria criteria= new Criteria(); /** 设置分页信息 */ if (pager.getLimit() != null && pager.getStart() != null) { criteria.setStart(pager.getStart()); criteria.setLimit(pager.getLimit()); criteria.setOracleStart(pager.getStart()); criteria.setOracleEnd(pager.getStart() + pager.getLimit()); } if (StringUtils.isNotEmpty(value)) { if (field.equals("orderNo")) { criteria.put("orderNo", value); } if (field.equals("orderName")) { criteria.put("orderName", value); }  } if (startDate!=null) { /**时间加一天**/ Calendar rightNow = Calendar.getInstance(); rightNow.setTime(startDate); rightNow.add(Calendar.DAY_OF_YEAR,1);//日期加1天 Date dt1=rightNow.getTime(); String da= dFormat.format(dt1); Date end = dFormat.parse(da);  criteria.put("today", startDate); criteria.put("end", end); }  List<BookStorage> list=bookStorageService.queryListForPage(criteria); int total=bookStorageService.getTotalCount(criteria); return new ExtGridReturn(total, list); } catch (Exception e) { e.printStackTrace(); return new ExceptionReturn(e); }  }
-
 
 
 
