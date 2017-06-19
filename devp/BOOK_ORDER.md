@@ -13,19 +13,13 @@
 |  参数|参数值|说明|
 
 | :---|:---|:---|
-
 |start|0|开始数据行|
-
 |limit|10|每页显示行数|
-
 |field|orderName/orderNo/signed|查询条件|
-
 #### 返回值
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtGridReturn|包含分页信息数据|
 
 #### 代码
@@ -79,17 +73,13 @@
 #### 请求参数 
 
 |  参数|说明|
-
 | :---|:---|
-
 |BookOrder/bookIdArray/orderCountArray |插入数据信息|
 
 #### 返回值
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否新增成功说明信息|
 
 ####代码
@@ -141,17 +131,12 @@
 ###删除
 
 |  参数|说明|
-
 | :---|:---|
-
 |id|订单id|
-
 #### 返回值
 
 | 返回值|说明|
-
 | :---|:---|
-
 |ExtReturn|是否删除成功说明信息|
 
 ####代码
@@ -280,28 +265,17 @@
  
 
 ```
-
-###数据库BOOK_DETAIL表结构
-
-|  字段名|字段类型|说明|
-
+###数据库BOOK_ORDER表结构
+| 字段名|字段类型|说明|
 | :---|:---|:---|
+ | ORDER_NO | VARCHAR2(20 BYTE) | 订单编号 |
+ |ORDER_NAME | VARCHAR2(50 BYTE) | 订单名称 |
+ | SUPPLIER_ID | NUMBER(6) | 供应商ID |
+ | STATUS | NUMBER(1) | 状态 0未采购 1采购中 2已采购 |
+ | OPER_USER | VARCHAR2(20 BYTE) | 操作人 |
+ | OPER_DATE | DATE | 操作时间 
+ | TOTAL_PRICE | NUMBER(10,2) | 订单总金额|
 
-|ID | NUMBER(6) | ID||BOOK_NAME | VARCHAR2(50 BYTE) | 图书名称|
 
-|AUTHOR | VARCHAR2(50 BYTE) | 作者|
 
-|PUBLISHER | VARCHAR2(200 BYTE) | 出版社|
-
-|PUBLISH_DATE | DATE | 出版日期|
-
-|BOOK_BRIEF | VARCHAR2(500 BYTE) | 图书简介|
-
-|OPER_USER | VARCHAR2(20 BYTE) | 操作人|
-
-|OPER_DATE | DATE | 操作时间|
-
-|TOTAL_COUNT | NUMBER(6) | 当前总册数|
-
-|BOOK_ISBN | VARCHAR2(20 BYTE) | ISBN号码|
 
