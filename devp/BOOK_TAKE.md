@@ -111,7 +111,7 @@
 
 | :---|:---|
 
-|BookStorage |插入数据信息|
+|BookTake |插入数据信息|
 
 #### 返回值
 
@@ -126,70 +126,43 @@
 ```java
 
 /** 添加 */
-
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-
 	@ResponseBody
-
-	public ExtReturn insert(BookStorage bookStorage, HttpServletRequest request, HttpSession session) {
-
+	public ExtReturn insert(BookTake bookTake, HttpServletRequest request,
+							HttpSession session) {
 		ExtReturn result = null;
-
 		try {
-
-			
-
-			
-
 			/** 获取当前用户 */
-
-			BaseUsers user = (BaseUsers)session.getAttribute(
-
- 					WebConstants.CURRENT_USER);
-
-			bookStorage.setOperUser(user);
-
+			BaseUsers user = (BaseUsers) session
+					.getAttribute(WebConstants.CURRENT_USER);
+			bookTake.setOperUser(user);
+			 BookDetail bookDet=bookDeatilService.queryById(bookTake.getBook().getId());
+			 int totalCo=bookDet.getTotalCount();
+			 if (totalCo>bookTake.getTakeCount()) {
+				 int insert = bookTakeService.insert(bookTake);
+					if (insert > 0) {
+						 BookDetail bookDetail=bookDeatilService.queryById(bookTake.getBook().getId());
+							int totalCount=bookDetail.getTotalCount()-bookTake.getTakeCount();
+							BookDetail bDetail=new BookDetail();
+							bDetail.setId(bookTake.getBook().getId());
+							bDetail.setTotalCount(totalCount);
+							int update=bookDeatilService.update(bDetail);
+						result = new ExtReturn(true, "添加成功");
+					} else {
+						result = new ExtReturn(false, "添加失败");
+					}
+			}else {
+				result = new ExtReturn(false, "库存数量为"+bookDet.getTotalCount()+"小于出库数量不能申请");
+			}
 			
-
-			 int insert=bookStorageService.insert(bookStorage);
-
-			 if (insert>0) {
-
-					
-
-				 BookDetail bookDetail=bookDeatilService.queryById(bookStorage.getBook().getId());
-
-					int totalCount=bookDetail.getTotalCount()+bookStorage.getStorageCount();
-
-					BookDetail bDetail=new BookDetail();
-
-					bDetail.setId(bookStorage.getBook().getId());
-
-					bDetail.setTotalCount(totalCount);
-
-					int update=bookDeatilService.update(bDetail);
-
-					result=new ExtReturn(true,"添加成功");
-
-				}else {
-
-					result=new ExtReturn(false,"添加失败");
-
-				};
-
-				return result;
-
-		} catch (Exception e) {
-
-			result = new ExtReturn(e);
-
-			LOGGER.error("添加信息出错", e);
-
 			return result;
-
+		} catch (Exception e) {
+			result = new ExtReturn(e);
+			LOGGER.error("添加信息出错", e);
+			return result;
 		}
-
 	}
+
 
 ```
 
@@ -199,7 +172,7 @@
 
 | :---|:---|
 
-|id||
+|id|take id|
 
 #### 返回值
 
@@ -213,44 +186,26 @@
 
 ```java
 
-/** 删除 */
 
+	/** 删除 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-
 	@ResponseBody
-
 	public ExtReturn delete(int id) {
-
 		ExtReturn result = null;
-
 		try {
-
-			int delete = bookStorageService.delete(id);
-
+			int delete = bookTakeService.delete(id);
 			if (delete == 1) {
-
 				result = new ExtReturn(true, "删除成功");
-
 			} else {
-
 				result = new ExtReturn(false, " 删除失败");
-
 			}
-
 			return result;
-
 		} catch (Exception e) {
-
 			LOGGER.error("删除信息出错", e);
-
 			result = new ExtReturn(e);
-
 			return result;
-
 		}
-
 	}
-
 			
 
 	
