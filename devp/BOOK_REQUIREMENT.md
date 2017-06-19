@@ -25,8 +25,8 @@
 | 参数|参数值|说明|
 | :---|:---|:---|
 |start|0|开始数据行|
-|limit|10|每页显示行数|
-|field|supplierName/isdel/contractUser|查询条件|
+|limit|20|每页显示行数|
+|orderNo|startDate/isdel/contractUser|查询条件|
 
 
 
@@ -63,7 +63,7 @@
 						if (field.equals("orderNo")) {
 							criteria.put("orderNo", value);
 						}
-						if (field.equals("orderName")) {
+						if (field.equals("orderNo")) {
 							criteria.put("orderName", value);
 						}
 				  
